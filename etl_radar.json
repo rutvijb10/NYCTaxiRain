@@ -1,0 +1,29 @@
+{
+  "extractor": {
+    "csv":{
+     "dateTimeFormat" : "yyyy-MM-dd HH:mm:ss",
+     "columns": [
+        "sweepTime:String",
+        "latitude:String",
+        "longitude:String",
+        "value:String"
+      ] 
+    }
+  },
+  "transformers": [
+    {
+      "command": {
+        "command": "INSERT INTO Climate SET sweepTime = DATE('${input.sweepTime}'), coordinates = {'@class': 'OPoint','coordinates' : [${input.longitude}, ${input.latitude}]}, value = ${input.value} "
+      }
+    }
+  ],
+  "loader": {
+    "orientdb": {
+      "dbURL": "remote:localhost/taxiproject",
+      "serverUser":"root",
+      "serverPassword":"csci5751password",
+      "dbType": "document",
+      "class": "Climate"
+    }
+  }
+}

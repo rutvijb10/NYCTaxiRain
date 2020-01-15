@@ -1,0 +1,62 @@
+{
+  "extractor": { 
+    "csv": {  
+      "dateTimeFormat" : "yyyy-MM-dd HH:mm:ss",
+	  "ignoreEmptyLines" : true,
+      "columns": [ 
+        "VendorID",
+        "pickup_datetime:dateTime",
+        "dropoff_datetime:dateTime",
+        "store_and_fwd_flag",
+        "RatecodeID",
+        "PULocationID",
+        "DOLocationID",
+        "passenger_count",
+        "trip_distance",
+        "fare_amount",
+        "extra",
+        "mta_tax",
+        "tip_amount",
+        "tolls_amount",
+        "ehail_fee",
+        "improvement_surcharge",
+        "total_amount",
+        "trip_type",
+        "congestion_surcharge"
+      ]
+    }
+  },
+
+  "transformers": [ 
+
+	{ "field": 
+      { 
+	    "fieldNames": [ "store_and_fwd_flag", "congestion_surcharge", "ehail_fee", "Trip_type", "trip_type" ],
+	    "operation": "remove" 
+	  } 
+    },
+
+    { "field":
+      { "fieldName": "color", "value": "G"}
+    },
+	
+  
+  ],
+  
+  "loader": {
+  
+    "orientdb": {
+    
+      "dbURL": "remote:localhost/taxiproject",
+      "serverUser":"root",
+      "serverPassword":"csci5751password",
+      "dbType": "document",
+
+    "class": "Trip",
+      "indexes": [
+        {"class":"Trip", "fields":["pickup_datetime:Datetime"], "type":"NOTUNIQUE" }
+      ]
+       
+    }
+  }
+}

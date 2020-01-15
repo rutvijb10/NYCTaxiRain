@@ -1,0 +1,1 @@
+cat taxidata/taxi_zones.csv | ../bin/oetl.sh ../taxiproject/etl_taxi_zone.json

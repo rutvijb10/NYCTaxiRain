@@ -1,0 +1,1 @@
+cat taxidata/20190501KOKX.csv | ../bin/oetl.sh ../taxiproject/etl_radar.json

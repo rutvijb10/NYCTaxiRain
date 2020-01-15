@@ -1,0 +1,1 @@
+cat taxidata/yellow_tripdata_2019-05.csv | ../bin/oetl.sh ../taxiproject/etl_ywllow_taxi.json

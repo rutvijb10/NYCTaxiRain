@@ -1,0 +1,33 @@
+{
+  "extractor": { "csv": {} },
+  "transformers": [
+    
+	{ "vertex": 
+		{ "class": "ZoneVertex" }
+	},
+	
+	{ "field": 
+      { "fieldName": "LocationID", "operation": "remove" } 
+    }
+	
+  ],
+  "loader": {
+    "orientdb": {
+	
+      "dbURL": "remote:localhost/taxiproject",
+      "serverUser":"root",
+      "serverPassword":"csci5751password",
+      "dbType": "graph",
+      "dbAutoCreate": true,
+
+       "classes": [
+         {"name": "ZoneVertex", "extends": "V"}
+       ], 
+	   
+	   "indexes": [
+         {"class":"ZoneVertex", "fields":["OBJECTID:integer"], "type":"UNIQUE" }
+       ]
+	   
+    }
+  }
+}
